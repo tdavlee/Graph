@@ -1,9 +1,11 @@
+package adjacencylist;
+
 import java.util.*;
 
-public class WeightedGraph {
-    HashMap<String, Vertex> adjacencyList;
+public class GraphL {
+    public HashMap<String, Vertex> adjacencyList;
 
-    public WeightedGraph() {
+    public GraphL() {
         this.adjacencyList = new HashMap<>();
     }
 
@@ -57,24 +59,34 @@ public class WeightedGraph {
         }
     }
 
-    public List<Object> DijkstrasAlgorithm(WeightedGraph graph, Vertex start) {
+    public void DijkstrasAlgorithm(GraphL graphL, Vertex start) {
+        // minpq
+        // visitedNodes
+        // prevNodes
+        // totalCosts
+
         HashMap<Vertex, Double> totalCosts = new HashMap<>();
         HashMap<Vertex, Vertex> prevNodes = new HashMap<>();
+        HashSet<Vertex> visitedNodes = new HashSet<>();
         PriorityQueue<Vertex> minPQ = new PriorityQueue<>();
-        HashSet<Integer> visited = new HashSet<>();
 
         totalCosts.put(start, 0.0);
         minPQ.add(start);
 
-        for (Vertex vertex : graph.adjacencyList.values()) {
-            if (vertex != start) {
-                totalCosts.put(vertex, Double.MAX_VALUE);
+        // add
+        // find costs of all adjacent nodes
+
+
+
+        //
+    }
+
+    public double getDistance(Vertex source, Vertex destination) {
+        for (Edge edge: source.edges) {
+            if (edge.destination == destination) {
+                return edge.weight;
             }
         }
-
-        while (!minPQ.isEmpty()) {
-            Vertex newSmallest = minPQ.poll();
-        }
-        return null;
+        return -1;
     }
 }

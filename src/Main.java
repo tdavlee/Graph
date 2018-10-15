@@ -1,25 +1,38 @@
+import adjacencylist.GraphL;
+import adjacencylist.Vertex;
+import adjacencymatrix.GraphM;
+
 public class Main {
     public static void main(String[] args) {
-        WeightedGraph graph = new WeightedGraph();
+//        GraphL graphL = new GraphL();
+//
+//        graphL.addVertex("SF");
+//        graphL.addVertex("SEA");
+//        graphL.addVertex("LA");
+//        graphL.addVertex("CHI");
+//        graphL.addVertex("NYC");
+//
+//        graphL.addEdge("SF", "SEA", 3, true);
+//        graphL.addEdge("SF", "LA", 5, true);
+//        graphL.addEdge("SEA", "CHI", 2, true);
+//        graphL.addEdge("SEA", "LA", 1, true);
+//        graphL.addEdge("LA", "CHI", 3, true);
+//        graphL.addEdge("LA", "NYC", 6, true);
+//        graphL.addEdge("CHI", "NYC", 4, true);
+//
+//
+//
+//        graphL.printAdjacencyList();
+//
+//        Vertex start = graphL.adjacencyList.get("SF");
+//        Vertex end = graphL.adjacencyList.get("SEA");
+//
+//        System.out.println(graphL.getDistance(start, end));
 
-        graph.addVertex("SF");
-        graph.addVertex("SEA");
-        graph.addVertex("LA");
-        graph.addVertex("CHI");
-        graph.addVertex("NYC");
 
-        graph.addEdge("SF", "SEA", 3, true);
-        graph.addEdge("SF", "LA", 5, true);
-        graph.addEdge("SEA", "CHI", 2, true);
-        graph.addEdge("SEA", "LA", 1, true);
-        graph.addEdge("LA", "CHI", 3, true);
-        graph.addEdge("LA", "NYC", 6, true);
-        graph.addEdge("CHI", "NYC", 4, true);
+//        System.out.println(graphL.DijkstrasAlgorithm(graphL, start));
 
 
-        graph.printAdjacencyList();
-
-        Vertex start = graph.adjacencyList.get("SF");
-        System.out.println(graph.DijkstrasAlgorithm(graph, start));
+        GraphM graphM = new GraphM(5);
     }
 }

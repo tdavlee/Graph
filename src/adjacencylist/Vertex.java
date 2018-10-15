@@ -1,7 +1,9 @@
+package adjacencylist;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vertex {
+public class Vertex{
     String name;
     List<Edge> edges;
 
@@ -39,4 +41,14 @@ public class Vertex {
         }
         return false;
     }
+
+    public Edge findEdge(Vertex other) {
+        for (Edge edge: edges) {
+            if (edge.destination == other) {
+                return edge;
+            }
+        }
+        return null;
+    }
+
 }
