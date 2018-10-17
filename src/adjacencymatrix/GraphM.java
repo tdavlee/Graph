@@ -23,9 +23,9 @@ public class GraphM {
         return maxtrix;
     }
 
-    public boolean addEdge(Edge node) {
-
-    }
+//    public boolean addEdge(Edge node) {
+//
+//    }
 
     class Edge {
         String name;

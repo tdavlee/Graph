@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vertex{
-    String name;
-    List<Edge> edges;
+    public String name;
+    public List<Edge> edges;
 
     public Vertex(String name) {
         this.name = name;
         edges = new ArrayList<>();
     }
 
-    @Override
-    public String toString() {
+    public String getAdjacencyList() {
         StringBuilder sb = new StringBuilder();
         sb.append(this.name);
 
@@ -21,6 +20,11 @@ public class Vertex{
             sb.append(edge.toString());
         }
         return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 
     public boolean hasEdge(Vertex vertex) {

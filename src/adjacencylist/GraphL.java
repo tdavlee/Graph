@@ -55,38 +55,81 @@ public class GraphL {
 
     public void printAdjacencyList() {
         for (Vertex vertex : adjacencyList.values()) {
-            System.out.print(vertex.toString() + "\n");
+            System.out.print(vertex.getAdjacencyList() + "\n");
         }
     }
 
-    public void DijkstrasAlgorithm(GraphL graphL, Vertex start) {
-        // minpq
-        // visitedNodes
-        // prevNodes
-        // totalCosts
-
+    public List<Object> DijkstrasAlgorithm(GraphL graphL, Vertex start) {
         HashMap<Vertex, Double> totalCosts = new HashMap<>();
         HashMap<Vertex, Vertex> prevNodes = new HashMap<>();
-        HashSet<Vertex> visitedNodes = new HashSet<>();
-        PriorityQueue<Vertex> minPQ = new PriorityQueue<>();
+        HashSet<String> visited = new HashSet<>();
+        PriorityQueue<Edge> minPQ = new PriorityQueue<>();
 
+        Edge startingEdge = new Edge(start, 0);
         totalCosts.put(start, 0.0);
-        minPQ.add(start);
+        prevNodes.put(start, start);
+        minPQ.add(startingEdge);
 
-        // add
-        // find costs of all adjacent nodes
+        for (Vertex vertex : adjacencyList.values()) {
+            if (vertex != start)
+                totalCosts.put(vertex, Double.MAX_VALUE);
+        }
+
+        while (!minPQ.isEmpty()) {
+            Edge newSmallest = minPQ.poll();
+            visited.add(newSmallest.destination.name);
+
+            for (Edge edge: newSmallest.destination.edges) {
+                if (!visited.contains(edge.destination.name)) {
+                    double newDistance = totalCosts.get(newSmallest.destination) + edge.weight;
+                    if (newDistance < totalCosts.get(edge.destination)) {
+                        totalCosts.replace(edge.destination, newDistance);
+                        prevNodes.put(edge.destination, newSmallest.destination);
+                    }
 
 
-
-        //
-    }
-
-    public double getDistance(Vertex source, Vertex destination) {
-        for (Edge edge: source.edges) {
-            if (edge.destination == destination) {
-                return edge.weight;
+                    Edge pqEdge = getEdge(minPQ.iterator(), edge);
+                    if (pqEdge == null) {
+                        minPQ.add(edge);
+                    } else {
+                        if (pqEdge.compareTo(edge) > 0) {
+                            minPQ.remove(edge);
+                            minPQ.add(pqEdge);
+                        }
+                    }
+                }
             }
         }
-        return -1;
+
+        return Arrays.asList(totalCosts, prevNodes);
+    }
+
+    public Edge getEdge(Iterator it, Edge target) {
+        while (it.hasNext()) {
+            Edge edge = (Edge) it.next();
+
+            if (edge.destination.name.equals(target.destination.name)) {
+                return edge;
+            }
+        }
+        return null;
+    }
+
+    public String getShortestPath(HashMap<Vertex, Vertex> nodes, Vertex source, Vertex destination) {
+        Vertex current = nodes.get(destination);
+        StringBuilder sb = new StringBuilder();
+        sb.append(current.name + " -> " + destination.name);
+
+        int count = nodes.size();
+        while (current != source) {
+            if (count-- <= 0) {
+                return "Path Not Found";
+            }
+
+            current = nodes.get(current);
+            sb.insert(0, current.name + " -> ");
+        }
+
+        return sb.toString();
     }
 }
