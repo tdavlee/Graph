@@ -59,21 +59,20 @@ public class GraphL {
         }
     }
 
-    public List<Object> DijkstrasAlgorithm(GraphL graphL, Vertex start) {
+    public List<Object> DijkstrasAlgorithm(Vertex start) {
         HashMap<Vertex, Double> totalCosts = new HashMap<>();
         HashMap<Vertex, Vertex> prevNodes = new HashMap<>();
         HashSet<String> visited = new HashSet<>();
         PriorityQueue<Edge> minPQ = new PriorityQueue<>();
 
+        for (Vertex vertex : adjacencyList.values()) {
+            totalCosts.put(vertex, Double.MAX_VALUE);
+        }
+
         Edge startingEdge = new Edge(start, 0);
-        totalCosts.put(start, 0.0);
+        totalCosts.replace(start, 0.0);
         prevNodes.put(start, start);
         minPQ.add(startingEdge);
-
-        for (Vertex vertex : adjacencyList.values()) {
-            if (vertex != start)
-                totalCosts.put(vertex, Double.MAX_VALUE);
-        }
 
         while (!minPQ.isEmpty()) {
             Edge newSmallest = minPQ.poll();
