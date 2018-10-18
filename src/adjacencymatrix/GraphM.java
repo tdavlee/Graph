@@ -52,6 +52,50 @@ public class GraphM {
         nodes.add(new Node(name, id));
     }
 
+    public int findLongestPath() {
+        int[] dist = new int[vertices];
+        boolean[] visited = new boolean[vertices];
+
+        for (int i = 0; i < dist.length; i++) {
+            dist[i] = Integer.MIN_VALUE;
+        }
+
+        dist[0] = 0;
+
+        for (int i = 0; i < vertices; i++) {
+            int u = findNextMax(dist, visited);
+            visited[u] = true;
+
+            for (int v = 0; v < vertices; v++) {
+                if (!visited[v] && matrix[u][v] != 0 &&
+                    dist[u] != Integer.MIN_VALUE &&
+                    dist[u] + matrix[u][v] > dist[v]) {
+                    dist[v] = dist[u] + matrix[u][v];
+                }
+            }
+        }
+
+
+        for (int i = 0; i < vertices; i++) {
+            System.out.println("i " + i + " : " + dist[i]);
+        }
+
+
+        return dist[vertices - 1];
+    }
+
+    public int findNextMax(int[] dist, boolean[] visited) {
+        int max = Integer.MIN_VALUE;
+        int maxIndex = 0;
+
+        for (int i = 0; i < vertices; i++) {
+            if (!visited[i] && dist[i] > max) {
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+
     public int[] DijkstrasAlgorithm(int start) {
         int[] dist = new int[vertices];
         boolean[] visited = new boolean[vertices];
@@ -62,7 +106,7 @@ public class GraphM {
         dist[start] = 0;
 
         for (int i = 0; i < vertices; i++) {
-            int u = findNextMin(i, dist, visited);
+            int u = findNextMin(dist, visited);
             visited[u] = true;
 
             for (int v = 0; v < vertices; v++) {
@@ -76,7 +120,7 @@ public class GraphM {
         return dist;
     }
 
-    public int findNextMin(int source, int[] dist, boolean[] visited) {
+    public int findNextMin(int[] dist, boolean[] visited) {
         int min = Integer.MAX_VALUE;
         int minIndex = -1;
 
